@@ -16,9 +16,13 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 const router = Router();
+app.get("/", (req, res) => {
+  res.sendStatus(200);
+});
+
 // 全てのルートを /api/v1/ 以下にする
 app.use("/api/v1", router);
 
-router.use("/gpt", gptRoute);
+router.use("/webhook", gptRoute);
 
 export default app;
