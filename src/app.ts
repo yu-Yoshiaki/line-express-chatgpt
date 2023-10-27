@@ -4,7 +4,11 @@ import gptRoute from "./routes/gpt";
 require("dotenv").config();
 const app = express();
 
-const cors = require("cors");
+// 環境変数の確認。なければサーバーを止める。
+if (!process.env.LINE_ACCESS_TOKEN) {
+  console.error("環境変数LINE_ACCESS_TOKENが設定されていません！");
+  process.exit(); // サーバーとめる
+}
 
 app.use(cors());
 
