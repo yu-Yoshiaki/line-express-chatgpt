@@ -1,7 +1,9 @@
 import express, { Router } from "express";
 import helmet from "helmet";
-import gptRoute from "./routes/gpt";
+import webhookRoute from "./routes/webhook";
+const cors = require("cors");
 require("dotenv").config();
+
 const app = express();
 
 // 環境変数の確認。なければサーバーを止める。
@@ -20,13 +22,13 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 const router = Router();
+
 app.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
 // 全てのルートを /api/v1/ 以下にする
 app.use("/api/v1", router);
-
-router.use("/webhook", gptRoute);
+router.use("/webhook", webhookRoute);
 
 export default app;

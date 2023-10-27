@@ -5,13 +5,11 @@ import app from "./app";
 const port = 5000;
 
 const errorMiddleware = (
-  err: any,
-  req: Request,
+  _: any,
+  __: Request,
   res: Response,
-  next: NextFunction
+  ___: NextFunction
 ) => {
-  console.log("error");
-  // throw new Error("From middleware");
   res.status(500).send("Error");
 };
 

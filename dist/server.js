@@ -5,9 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const port = 5000;
-const errorMiddleware = (err, req, res, next) => {
-    console.log("error");
-    // throw new Error("From middleware");
+const errorMiddleware = (_, __, res, ___) => {
     res.status(500).send("Error");
 };
 // エラーハンドリングミドルウェアの実装
