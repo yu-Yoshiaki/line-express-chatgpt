@@ -7,4 +7,4 @@
 
 ## ホスティング
 
-- Render
+- [render](https://dashboard.render.com)
