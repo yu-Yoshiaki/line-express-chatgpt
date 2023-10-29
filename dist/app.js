@@ -29,12 +29,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
 const helmet_1 = __importDefault(require("helmet"));
 const webhook_1 = __importDefault(require("./routes/webhook"));
+const check_sign_1 = require("./middlewares/check-sign");
 const cors = require("cors");
-require("dotenv").config();
 const app = (0, express_1.default)();
 // 環境変数の確認。なければサーバーを止める。
-if (!process.env.LINE_ACCESS_TOKEN) {
-    console.error("環境変数LINE_ACCESS_TOKENが設定されていません！");
+if (!process.env.LINE_ACCESS_TOKEN ||
+    !process.env.OPENAI_API_KEY ||
+    !process.env.LINE_SECRET) {
+    console.error("環境変数が設定されていません！");
     process.exit(); // サーバーとめる
 }
 app.use(cors());
@@ -49,6 +51,7 @@ app.get("/", (req, res) => {
     res.sendStatus(200);
 });
 // 全てのルートを /api/v1/ 以下にする
-app.use("/api/v1", router);
+// check signature from LINE or not
+app.use("/api/v1", check_sign_1.checkSignature, router);
 router.use("/webhook", webhook_1.default);
 exports.default = app;
