@@ -1,5 +1,6 @@
 // app.tsと分けたのは、テストをしやすいから。
 import { NextFunction, Request, Response } from "express";
+require("dotenv").config();
 import app from "./app";
 
 const port = 5000;

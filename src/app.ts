@@ -2,7 +2,6 @@ import express, { Router } from "express";
 import helmet from "helmet";
 import webhookRoute from "./routes/webhook";
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 
