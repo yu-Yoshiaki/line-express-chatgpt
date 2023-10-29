@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import helmet from "helmet";
 import webhookRoute from "./routes/webhook";
+import { checkSignature } from "./middlewares/check-sign";
 const cors = require("cors");
 
 const app = express();
@@ -31,7 +32,9 @@ app.get("/", (req, res) => {
 });
 
 // 全てのルートを /api/v1/ 以下にする
-app.use("/api/v1", router);
+// check signature from LINE or not
+app.use("/api/v1", checkSignature, router);
+
 router.use("/webhook", webhookRoute);
 
 export default app;
