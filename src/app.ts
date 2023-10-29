@@ -6,8 +6,12 @@ const cors = require("cors");
 const app = express();
 
 // 環境変数の確認。なければサーバーを止める。
-if (!process.env.LINE_ACCESS_TOKEN) {
-  console.error("環境変数LINE_ACCESS_TOKENが設定されていません！");
+if (
+  !process.env.LINE_ACCESS_TOKEN ||
+  !process.env.OPENAI_API_KEY ||
+  !process.env.LINE_SECRET
+) {
+  console.error("環境変数が設定されていません！");
   process.exit(); // サーバーとめる
 }
 
